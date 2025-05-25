@@ -17,12 +17,11 @@
         "idle_inhibitor",
         "pulseaudio",
         "network",
-        "backlight",
         "cpu",
         "memory",
         "temperature",
         "battery",
-        "clock",
+        "clock"
     ],
     //Modules configuration
 

@@ -6,7 +6,8 @@
 }
 
 window#waybar {
-    background: rgba(26, 27, 38, 0.75);
+    /* background: rgba(26, 27, 38, 0.75); */
+    background: rgba(0, 0, 0, 0);
     color: #c0caf5;
     font-family: 
         SpaceMono Nerd Font,
@@ -47,6 +48,7 @@ window#waybar {
 #scratchpad,
 #power-profiles-daemon,
 #language,
+#power,
 #mpd {
     padding: 0 10px;
     border-radius: 15px;
@@ -68,6 +70,7 @@ window#waybar {
 #idle_inhibitor:hover,
 #scratchpad:hover,
 #power-profiles-daemon:hover,
+#power,
 #language:hover,
 #mpd:hover {
     background: rgba(26, 27, 38, 0.9);

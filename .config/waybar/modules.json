@@ -48,6 +48,11 @@
         "tooltip-format": "{ifname} via {gwaddr} ",
         "format-linked": "{ifname} (No IP) ",
         "format-disconnected": "Disconnected ⚠",
+        "on-click": "nmtui &",
+    },
+    "backlight": {
+        "format": "{percent}% {icon}",
+        "format-icons": ["", "", "", "", "", "", "", "", ""]
     },
     "cpu": {
         "format": "  {usage}%",
@@ -80,10 +85,9 @@
         "format-alt": "{time}  {icon}",
         "format-icons": ["", "", "", "", ""]
     },
-   "clock": {
+    "clock": {
         "format": "{:%H:%M | %e %B} ",
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
         "format-alt": "{:%Y-%m-%d}"
-    }
-
+    },
 }

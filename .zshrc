@@ -118,8 +118,3 @@ export WINDOWSHOME="/mnt/c/Users/unknownredfoxo/"
 # neofetch
 export EDITOR='lvim'
 alias cls='clear'
-if [[ ! -z $(pgrep tmux) ]] && [[ -z $TMUX ]] ; then
-    tmux kill-server
-else
-    tmux new-session
-fi
