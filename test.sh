@@ -97,6 +97,7 @@ find $DEV_ENV -maxdepth 1 -type f | while read -r file; do
 done
 
 # Running in hyprland
-if [[ ! -z $(which hyprctl) ]] ; then
+hyprcontrol=`which hyprctl 2> /dev/null ; echo $?`
+if [[ $hyprcontrol -eq 0 ]] ; then
 	hyprctl reload > /dev/null 2> /dev/null
 fi

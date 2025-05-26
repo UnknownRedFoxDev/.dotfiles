@@ -118,3 +118,4 @@ export WINDOWSHOME="/mnt/c/Users/unknownredfoxo/"
 # neofetch
 export EDITOR='lvim'
 alias cls='clear'
+export XDG_CONFIG_HOME="$HOME/.config"
