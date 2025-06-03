@@ -40,3 +40,7 @@ music
 .zsh_history
 .config/obs-studio
 .config/htop
+.config/aseprite
+.config/btop
+.config/obsidian
+.rustup

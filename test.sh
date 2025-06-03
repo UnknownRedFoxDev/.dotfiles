@@ -3,31 +3,31 @@
 destFolder="$HOME"
 
 if [[ $# -ge 1 ]]; then
-    while [[ $# -gt 0 ]] ; do
-        if [[ $1 = "--color" ]] || [[ $1 = "-c" ]] ; then
-            RED='\033[0;31m'
-            GREEN='\033[0;32m'
-            WHITE='\033[0m'
-        fi
+  while [[ $# -gt 0 ]]; do
+    if [[ $1 = "--color" ]] || [[ $1 = "-c" ]]; then
+      RED='\033[0;31m'
+      GREEN='\033[0;32m'
+      WHITE='\033[0m'
+    fi
 
-        if [[ $1 = "--destination" ]] || [[ $1 = "-d" ]] ; then
-            if [[ -z $2 ]] || [[ ! -d $2 ]] ; then
-                exit 0
-            fi
-            destFolder="$2"
-        fi
-        shift
-    done
+    if [[ $1 = "--destination" ]] || [[ $1 = "-d" ]]; then
+      if [[ -z $2 ]] || [[ ! -d $2 ]]; then
+        exit 0
+      fi
+      destFolder="$2"
+    fi
+    shift
+  done
 else
-    RED=''
-    GREEN=''
-    WHITE=''
+  RED=''
+  GREEN=''
+  WHITE=''
 fi
 
 # Recreation of @ThePrimeagen Script to copy over files from his dev/ to his $HOME.
 
-if [[ -z $DEV_ENV ]] ; then
-    exit 0
+if [[ -z $DEV_ENV ]]; then
+  exit 0
 fi
 #
 # --- PRE-NOTICE:
@@ -35,69 +35,67 @@ fi
 echo -e "Target folder (env) :\t$DEV_ENV"
 echo -e "Destination folder  :\t$destFolder\n"
 
-
 # ------------- PARENTs EXISTENCE TEST -------------
 
 find $DEV_ENV -mindepth 1 -maxdepth 1 -type d | while read -r parentFolder; do
-    parentName=$(basename $parentFolder)
-    destParentPath="$destFolder/$parentName"
+  parentName=$(basename $parentFolder)
+  destParentPath="$destFolder/$parentName"
 
-    if [[ ! -d $destParentPath ]] ; then
-        echo "Parent Folder \"$parentName\" doesn't yet exist at \"$destFolder\""
-        echo "Creating: \"$parentName\" at \"$destFolder\""
-        mkdir $destParentPath
-    fi
+  if [[ ! -d $destParentPath ]]; then
+    echo "Creating: \"$parentName\" at \"$destFolder\""
+    mkdir $destParentPath
+  fi
 done
-
 
 # -------------- CHILD FOLDERS PAST PARENT EXISTENCE TEST ---------
 
 # For example: folder="$DEV_ENV/.../nvim" with $DEV_ENV being most of the time: `pwd`
 # So: folder="/home/$USER/dev/env/.config/nvim
 find $DEV_ENV -mindepth 2 -type d | while read -r folder; do
-    # aka: nvim
-    folder_name=$(basename $folder)
+  # aka: nvim
+  folder_name=$(basename $folder)
 
-    # Path without $DEV_ENV
-    # aka: .config/nvim
-    relative_path=$(echo $folder | sed "s|^$DEV_ENV/||")
+  # Path without $DEV_ENV
+  # aka: .config/nvim
+  relative_path=$(echo $folder | sed "s|^$DEV_ENV/||")
 
-    # Name of the root folder holding the folder "folder"
-    # aka: .config
-    rootFolder=$(echo $relative_path | sed "s|/$folder_name||")
-    
-    # aka: /home/$USER/.config/nvim
-    homePath="$destFolder/$relative_path"
-    
-    # aka: /home/$USER/.config
-    homeRootPath="$destFolder/$rootFolder"
+  # Name of the root folder holding the folder "folder"
+  # aka: .config
+  rootFolder=$(echo $relative_path | sed "s|/$folder_name||")
 
-    echo -e "${RED}Removing: rm -rf $destFolder/$relative_path${WHITE}"
-    if [[ -d $homePath ]] ; then
-        rm -rf $homePath
-    fi
+  # aka: /home/$USER/.config/nvim
+  homePath="$destFolder/$relative_path"
 
+  # aka: /home/$USER/.config
+  homeRootPath="$destFolder/$rootFolder"
 
-    echo -e "${GREEN}Copying env: $folder_name ---> $homeRootPath${WHITE}"
-    cp -rf "$folder" "$homeRootPath"
+  # echo -e "${RED}Removing: rm -rf $destFolder/$relative_path${WHITE}"
+  if [[ -d $homePath ]]; then
+    rm -rf $homePath
+  fi
+
+  # echo -e "${GREEN}Copying env: $folder_name ---> $homeRootPath${WHITE}"
+  cp -rf "$folder" "$homeRootPath"
 done
 
 # ----------- FILES COVERAGE -----------
 
 find $DEV_ENV -maxdepth 1 -type f | while read -r file; do
-    filename=$(basename $file)
-    destPath="$destFolder/$filename"
-    if [[ -f $destPath ]] ; then
-        echo -e "${RED}Removing: $destPath${WHITE}"
-        rm $destPath
-    fi
+  filename=$(basename $file)
+  destPath="$destFolder/$filename"
+  if [[ -f $destPath ]]; then
+    # echo -e "${RED}Removing: $destPath${WHITE}"
+    rm $destPath
+  fi
 
-    echo -e "${GREEN}Copying: $file ---> $destPath${WHITE}"
-    cp -f "$file" "$destFolder"
+  # echo -e "${GREEN}Copying: $file ---> $destPath${WHITE}"
+  cp -f "$file" "$destFolder"
 done
 
 # Running in hyprland
-hyprcontrol=`which hyprctl 2> /dev/null ; echo $?`
-if [[ $hyprcontrol -eq 0 ]] ; then
-	hyprctl reload > /dev/null 2> /dev/null
+hyprcontrol=$(which hyprctl 2>/dev/null)
+if [[ $? -eq 0 ]]; then
+  hyprctl reload >/dev/null 2>/dev/null
+else
+  echo -e "Please exit out of tmux and type:\nhyprctl reload"
 fi

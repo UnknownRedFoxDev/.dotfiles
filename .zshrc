@@ -116,6 +116,6 @@ export LOCALAPPDATA="$HOME/unknownredfoxo/AppData/Local"
 export WINDOWSHOME="/mnt/c/Users/unknownredfoxo/"
 
 # neofetch
-export EDITOR='lvim'
+export EDITOR='nvim'
 alias cls='clear'
 export XDG_CONFIG_HOME="$HOME/.config"
