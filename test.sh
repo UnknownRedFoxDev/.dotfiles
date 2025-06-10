@@ -42,7 +42,7 @@ find $DEV_ENV -mindepth 1 -maxdepth 1 -type d | while read -r parentFolder; do
   destParentPath="$destFolder/$parentName"
 
   if [[ ! -d $destParentPath ]]; then
-    echo "Creating: \"$parentName\" at \"$destFolder\""
+    # echo "Creating: \"$parentName\" at \"$destFolder\""
     mkdir $destParentPath
   fi
 done
@@ -51,7 +51,7 @@ done
 
 # For example: folder="$DEV_ENV/.../nvim" with $DEV_ENV being most of the time: `pwd`
 # So: folder="/home/$USER/dev/env/.config/nvim
-find $DEV_ENV -mindepth 2 -type d | while read -r folder; do
+find $DEV_ENV -mindepth 2 -type f | while read -r folder; do
   # aka: nvim
   folder_name=$(basename $folder)
 
@@ -68,7 +68,7 @@ find $DEV_ENV -mindepth 2 -type d | while read -r folder; do
 
   # aka: /home/$USER/.config
   homeRootPath="$destFolder/$rootFolder"
-
+#
   # echo -e "${RED}Removing: rm -rf $destFolder/$relative_path${WHITE}"
   if [[ -d $homePath ]]; then
     rm -rf $homePath
@@ -93,9 +93,4 @@ find $DEV_ENV -maxdepth 1 -type f | while read -r file; do
 done
 
 # Running in hyprland
-hyprcontrol=$(which hyprctl 2>/dev/null)
-if [[ $? -eq 0 ]]; then
-  hyprctl reload >/dev/null 2>/dev/null
-else
-  echo -e "Please exit out of tmux and type:\nhyprctl reload"
-fi
+hyprctl reload >/dev/null 2>/dev/null
