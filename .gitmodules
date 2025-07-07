@@ -4,3 +4,6 @@
 [submodule "personal/programming/CWG_CPP"]
 	path = personal/programming/CWG_CPP
 	url = git@github.com:UnknownRedFoxDev/CWG_CPP.git
+[submodule "personal/programming/openGl3_glfw"]
+	path = personal/programming/openGl3_glfw
+	url = git@github.com:UnknownRedFoxDev/openGl3_glfw.git
