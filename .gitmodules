@@ -1,3 +1,6 @@
 [submodule "dev"]
 	path = dev
 	url = git@github.com:UnknownRedFoxDev/dev.git
+[submodule "personal/programming/CWG_CPP"]
+	path = personal/programming/CWG_CPP
+	url = git@github.com:UnknownRedFoxDev/CWG_CPP.git
