@@ -1,5 +1,4 @@
 .cache
-.cargo
 .config/go/telemetry/local
 .config/kde.org
 .config/lazygit
@@ -54,3 +53,15 @@ personal/houseItems
 personal/houseItems
 video_temp
 personal/programming/ImGui
+.dotnet
+.nuget
+.renderdoc
+.cargo/git
+.cargo/registry
+.cargo/.crates.toml
+.cargo/.crates2.json
+.cargo/.global-cache
+.cargo/.package-cache
+.cargo/.package-cache-mutate
+.zshHistFile
+.zcompdump

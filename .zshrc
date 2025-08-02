@@ -100,22 +100,16 @@ source $ZSH/oh-my-zsh.sh
 # For a full list of active aliases, run `alias`.
 #
 # Example aliases
-alias zshconfig="mate ~/.zshrc"
-alias ohmyzsh="mate ~/.oh-my-zsh"
+# alias zshconfig="mate ~/.zshrc"
+# alias ohmyzsh="mate ~/.oh-my-zsh"
 
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
+alias cat='$HOME/.cargo/bin/bat'
+alias ls="$HOME/.cargo/bin/eza -l --icons --time-style=long-iso --group-directories-first"
 
-# other aliases
+# alias larth='ls -larth'
+alias larth='ls -larhsmodified'
+alias ll='ls -la --icons --time-style=long-iso --group-directories-first'
 
-
-export PATH=$PATH:"$HOME/.local/bin"
-export APPDATA="$HOME/unknownredfoxo/AppData/Roaming"
-export LOCALAPPDATA="$HOME/unknownredfoxo/AppData/Local"
-export WINDOWSHOME="/mnt/c/Users/unknownredfoxo/"
-
-# neofetch
 export EDITOR='nvim'
 alias cls='clear'
 export XDG_CONFIG_HOME="$HOME/.config"
