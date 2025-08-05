@@ -65,3 +65,4 @@ personal/programming/ImGui
 .cargo/.package-cache-mutate
 .zshHistFile
 .zcompdump
+.config/Electron/Crashpad
