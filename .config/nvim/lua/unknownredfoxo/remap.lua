@@ -22,3 +22,6 @@ vim.keymap.set("n", "]d", vim.cmd.cnext)
 -- vim.keymap.set("n", "]d", vim.diagnostic.goto_next, {})
 vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, {})
 vim.keymap.set("n", "<leader>dl", vim.diagnostic.setloclist, {})
+
+vim.keymap.set("n", "<A-j>", ":m .+1<CR>")
+vim.keymap.set("n", "<A-k>", ":m .-2<CR>")

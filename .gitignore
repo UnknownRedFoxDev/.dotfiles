@@ -66,3 +66,7 @@ personal/programming/ImGui
 .zshHistFile
 .zcompdump
 .config/Electron/Crashpad
+.config/user-dirs.dirs
+.config/user-dirs.locale
+personal/programming/python-uv-example/__pycache__
+personal/programming/python-uv-example/scripts/__pycache__

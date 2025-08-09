@@ -1,0 +1,14 @@
+[project]
+name = "python-uv-example"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = []
+
+[dependency-groups]
+dev = [
+    "pyqt-tools>=1.0.0",
+    "pyqt6>=6.9.1",
+    "ruff>=0.12.7",
+]
