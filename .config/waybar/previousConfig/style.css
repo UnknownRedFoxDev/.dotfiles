@@ -9,7 +9,7 @@ window#waybar {
     /* background: rgba(26, 27, 38, 0.75); */
     background: rgba(0, 0, 0, 0);
     color: #c0caf5;
-    font-family:
+    font-family: 
         SpaceMono Nerd Font,
         feather;
     transition: background-color .5s;
@@ -50,7 +50,7 @@ window#waybar {
 #language,
 #power,
 #mpd {
-    padding: 0 7px;
+    padding: 0 10px;
     border-radius: 15px;
 }
 
@@ -79,7 +79,9 @@ window#waybar {
 
 #workspaces button {
   background: transparent;
-  font-family: FiraCode Nerd Font;
+  font-family:
+    SpaceMono Nerd Font,
+    feather;
   font-weight: 900;
   font-size: 13pt;
   color: #c0caf5;
@@ -88,7 +90,7 @@ window#waybar {
 }
 
 #workspaces button.active {
-    background: #13131d;
+    background: #13131d; 
 }
 
 #workspaces button:hover {
@@ -97,3 +99,12 @@ window#waybar {
   box-shadow: none;
 }
 
+#custom-arch {
+    margin-left: 5px;
+    padding: 0 10px;
+    font-size: 25px;
+    transition: color .5s;
+}
+#custom-arch:hover {
+    color: #1793d1;
+}

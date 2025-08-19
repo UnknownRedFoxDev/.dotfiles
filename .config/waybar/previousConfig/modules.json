@@ -1,4 +1,11 @@
 {
+    "custom/arch": {
+        "format": "󰣇",
+        "tooltip": true,
+        "tooltip-format": "btw"
+    },
+
+
     "hyprland/workspaces": {
         "disable-scroll": true,
         "all-outputs": true,
@@ -10,6 +17,13 @@
             "default": ""
         }
     },
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+            "activated": "",
+            "deactivated": ""
+        }
+    },
     "pulseaudio": {
         "format": "{icon}  {volume}%",
         "format-bluetooth": "{icon} {volume}%  {format_source}",
@@ -18,29 +32,35 @@
         "format-source": " {volume}%",
         "format-source-muted": "",
         "format-icons": {
+            "headphone": "",
+            "hands-free": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
             "default": ["", "", ""]
         },
         "on-click": "pavucontrol"
     },
     "network": {
-        "format-wifi": "   {signalStrength}%",
-        "format-ethernet": "Ethernet: ",
-        "tooltip-format": "{ifname} via {gwaddr}",
-        "format-linked": "{ifname} (No IP)",
-        "format-disconnected": "󰤮  Disconnected",
-        "on-click": "pavucontrol"
+        "format-wifi": "({signalStrength}%) ",
+        "format-ethernet": "",
+        "tooltip-format": "{ifname} via {gwaddr} ",
+        "format-linked": "{ifname} (No IP) ",
+        "format-disconnected": "Disconnected ⚠",
+        "on-click": "nmtui &",
     },
     "backlight": {
-        "format": "{icon} {percent}%",
+        "format": "{percent}% {icon}",
         "format-icons": ["", "", "", "", "", "", "", "", ""]
     },
     "cpu": {
-        "format": "   {usage}%",
+        "format": "  {usage}%",
         "tooltip": true
     },
     "memory": {
-        "format": "{}% Memory Used",
-        "tooltip": true
+        "format": "  {}%",
+	"tooltip": true
     },
     "temperature": {
         "interval": 10,
@@ -52,7 +72,6 @@
     "hyprland/language": {
        "format": "  {}",
        "format-en": "EN",
-       "format-fr": "FR"
     },
     "battery": {
         "states": {
@@ -61,15 +80,14 @@
         },
         "format": "{icon}  {capacity}%",
         "format-full": "{icon}  {capacity}%",
-        "format-charging": " {capacity}%",
+        "format-charging": "  {capacity}%",
         "format-plugged": "  {capacity}%",
         "format-alt": "{time}  {icon}",
         "format-icons": ["", "", "", "", ""]
     },
     "clock": {
-        "interval": 5,
-        "format": "{:%H:%M:%S | %e %B} ",
+        "format": "{:%H:%M | %e %B} ",
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-        "format-alt": "{:%Y-%m-%d | :%H:%M:%S}"
-    }
+        "format-alt": "{:%Y-%m-%d}"
+    },
 }

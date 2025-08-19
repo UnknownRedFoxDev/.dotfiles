@@ -428,6 +428,17 @@ require("lazy").setup({
 					end,
 				},
 			}
+
+			require('lspconfig').clangd.setup {
+				cmd = {
+					"clangd",
+					"--background-index",
+					"--clang-tidy",
+					"--header-insertion=iwyu",
+					"--completion-style=detailed",
+				},
+				root_dir = require("lspconfig.util").root_pattern("Makefile", "compile_commands.json", ".git"),
+			}
 		end,
 	},
 })
@@ -439,7 +450,7 @@ vim.g.netrw_banner = 0
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
-vim.opt.expandtab = false
+vim.opt.expandtab = true
 vim.opt.smartcase = true
 vim.opt.ignorecase = true
 
