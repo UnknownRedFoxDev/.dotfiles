@@ -103,6 +103,7 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+alias ff='fastfetch -c ./.config/fastfetch/test.jsonc'
 alias cat='$HOME/.cargo/bin/bat'
 alias ls="$HOME/.cargo/bin/eza -l --icons --time-style=long-iso --group-directories-first"
 

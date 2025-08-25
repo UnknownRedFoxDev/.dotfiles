@@ -23,7 +23,7 @@
         "on-click": "pavucontrol"
     },
     "network": {
-        "format-wifi": "   {signalStrength}%",
+        "format-wifi": "    {signalStrength}%",
         "format-ethernet": "Ethernet: ",
         "tooltip-format": "{ifname} via {gwaddr}",
         "format-linked": "{ifname} (No IP)",
@@ -31,7 +31,7 @@
         "on-click": "pavucontrol"
     },
     "backlight": {
-        "format": "{icon} {percent}%",
+        "format": "{icon}  {percent}%",
         "format-icons": ["", "", "", "", "", "", "", "", ""]
     },
     "cpu": {
@@ -59,7 +59,7 @@
             "warning": 30,
             "critical": 15
         },
-        "format": "{icon}  {capacity}%",
+        "format": "{icon}   {capacity}%",
         "format-full": "{icon}  {capacity}%",
         "format-charging": " {capacity}%",
         "format-plugged": "  {capacity}%",

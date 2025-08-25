@@ -1,34 +1,30 @@
 * {
     /* `otf-font-awesome` and SpaceMono Nerd Font are required to be installed for icons */
     font-family: "Fira Sans Semibold", FontAwesome, Roboto, Helvetica, Arial, sans-serif;
-    font-size: 15px;
+    font-size: 16px;
     transition: background-color .3s ease-out;
 }
 
 window#waybar {
-    /* background: rgba(26, 27, 38, 0.75); */
-    background: rgba(0, 0, 0, 0);
+    background: #191726;
     color: #c0caf5;
     font-family:
-        SpaceMono Nerd Font,
-        feather;
-    transition: background-color .5s;
+    FiraCode Nerd Font,
+    feather;
 }
 
 .modules-left,
 .modules-center,
 .modules-right
 {
-    background: rgba(0, 0, 8, .7);
-    margin: 5px 10px;
+    background: #191726;
+    margin: 2px 0;
     padding: 0 5px;
-    border-radius: 15px;
 }
 .modules-left {
-    padding: 0;
+    margin-left: 10px;
 }
 .modules-center {
-    padding: 0 10px;
 }
 
 #clock,
@@ -50,8 +46,8 @@ window#waybar {
 #language,
 #power,
 #mpd {
-    padding: 0 7px;
-    border-radius: 15px;
+    padding: 0 5px;
+    border-radius: 10px;
 }
 
 #clock:hover,
@@ -73,27 +69,28 @@ window#waybar {
 #power,
 #language:hover,
 #mpd:hover {
-    background: rgba(26, 27, 38, 0.9);
+    background: #191726;
 }
 
 
 #workspaces button {
-  background: transparent;
-  font-family: FiraCode Nerd Font;
-  font-weight: 900;
-  font-size: 13pt;
-  color: #c0caf5;
-  border:none;
-  border-radius: 15px;
+    background: #191726;
+    font-family: FiraCode Nerd Font;
+    font-weight: 900;
+    font-size: 16pt;
+    color: #c0caf5;
+    border:none;
+    border-radius: 10px;
 }
 
 #workspaces button.active {
-    background: #13131d;
+    background: #CDCBE0;
+    color: #191726;
 }
 
 #workspaces button:hover {
-  background: #11111b;
-  color: #cdd6f4;
-  box-shadow: none;
+    background: #CDCBE0;
+    color: #191726;
+    box-shadow: none;
 }
 

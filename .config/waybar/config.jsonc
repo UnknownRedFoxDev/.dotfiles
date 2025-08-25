@@ -7,10 +7,10 @@
     "spacing": 5, // Gaps between modules (4px)
     // Choose the order of the modules
     "modules-left": [
-        "hyprland/workspaces"
+        "hyprland/window"
     ],
     "modules-center": [
-        "hyprland/window"
+        "hyprland/workspaces"
     ],
     "modules-right": [
         "pulseaudio",
@@ -20,7 +20,7 @@
         "memory",
         "temperature",
         "battery",
-        "clock",
+        "clock"
     ],
 
     //Modules configuration

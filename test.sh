@@ -52,7 +52,7 @@ done
 
 # For example: folder="$DEV_ENV/.../nvim" with $DEV_ENV being most of the time: `pwd`
 # So: folder="/home/$USER/dev/env/.config/nvim
-find $DEV_ENV -mindepth 2 -type f | while read -r folder; do
+find $DEV_ENV -mindepth 2 -type d | while read -r folder; do
     # aka: nvim
     folder_name=$(basename $folder)
 
@@ -69,28 +69,28 @@ find $DEV_ENV -mindepth 2 -type f | while read -r folder; do
 
     # aka: /home/$USER/.config
     homeRootPath="$destFolder/$rootFolder"
-    #
     echo -e "${RED}Removing: rm -rf $destFolder/$relative_path${WHITE}"
     if [[ -d $homePath ]]; then
-      rm -rf $homePath
+        rm -rf $homePath
     fi
 
     echo -e "${GREEN}Copying env: $folder_name ---> $homeRootPath${WHITE}"
+    mkdir -p "$homeRootPath" >/dev/null 2>/dev/null
     cp -rf "$folder" "$homeRootPath"
 done
 
 # ----------- FILES COVERAGE -----------
 
 find $DEV_ENV -maxdepth 1 -type f | while read -r file; do
-filename=$(basename $file)
-destPath="$destFolder/$filename"
-if [[ -f $destPath ]]; then
-    echo -e "${RED}Removing: $destPath${WHITE}"
-    rm $destPath
-fi
+    filename=$(basename $file)
+    destPath="$destFolder/$filename"
+    if [[ -f $destPath ]]; then
+        echo -e "${RED}Removing: $destPath${WHITE}"
+        rm $destPath
+    fi
 
-echo -e "${GREEN}Copying: $file ---> $destPath${WHITE}"
-cp -f "$file" "$destFolder"
+    echo -e "${GREEN}Copying: $file ---> $destPath${WHITE}"
+    cp -f "$file" "$destFolder"
 done
 
 # Running in hyprland
