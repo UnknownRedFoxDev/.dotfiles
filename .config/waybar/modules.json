@@ -71,5 +71,9 @@
         "format": "{:%H:%M:%S | %e %B} ",
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
         "format-alt": "{:%Y-%m-%d | :%H:%M:%S}"
+    },
+    "custom/shutdown": {
+        "format":"click me",
+        "on-click": "wlogout"
     }
 }

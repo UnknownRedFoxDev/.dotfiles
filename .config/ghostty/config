@@ -1,7 +1,6 @@
 # Nightfox colors for Ghostty
 ## name: duskfox
 ## upstream: https://github.com/edeneast/nightfox.nvim/raw/main/extra/duskfox/duskfox.ghostty
-
 background = #232136
 foreground = #e0def4
 selection-background = #433c59

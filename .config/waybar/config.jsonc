@@ -20,7 +20,8 @@
         "memory",
         "temperature",
         "battery",
-        "clock"
+        "clock",
+        "custom/shutdown"
     ],
 
     //Modules configuration

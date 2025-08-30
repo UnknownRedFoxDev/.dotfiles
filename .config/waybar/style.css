@@ -18,13 +18,11 @@ window#waybar {
 .modules-right
 {
     background: #191726;
-    margin: 2px 0;
+    margin: 4.5px 0;
     padding: 0 5px;
 }
 .modules-left {
     margin-left: 10px;
-}
-.modules-center {
 }
 
 #clock,
@@ -45,6 +43,7 @@ window#waybar {
 #power-profiles-daemon,
 #language,
 #power,
+#custom-shutdown,
 #mpd {
     padding: 0 5px;
     border-radius: 10px;
@@ -68,6 +67,7 @@ window#waybar {
 #power-profiles-daemon:hover,
 #power,
 #language:hover,
+#custom-shutdown,
 #mpd:hover {
     background: #191726;
 }
