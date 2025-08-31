@@ -86,3 +86,6 @@ Pictures
 .wget-hsts
 .config/tracy
 opt
+.nimble
+go/pkg/mod
+.config/cppman
