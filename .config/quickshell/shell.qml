@@ -62,21 +62,21 @@ PanelWindow {
                 font.pixelSize: 18
                 font.weight: 500
                 color: "#696580"
-                property string icon: ""
+                property string icon: " "
 
                 Process {
                     id: cpuProc
-                    command: ["sh", "-c", ""]
+                    command: ["sh", "-c", "~/.config/quickshell/cpu_usage_cal.sh"]
                     running: true
                     stdout: StdioCollector {
                         onStreamFinished: {
                             var percent = parseInt(this.text.trim())
-                            cpuText.text = cpuText.icon + this.text
+                            cpuText.text = cpuText.icon + this.text.trim() + "%"
                         }
                     }
                 }
                 Timer {
-                    interval: 10000
+                    interval: 9000
                     running: true
                     repeat: true
                     onTriggered: cpuProc.running = true
@@ -334,7 +334,7 @@ PanelWindow {
                             else if (percent < 66) speakerText.icon = speakerText.icons[1]
                             else speakerText.icon = speakerText.icons[2]
                             speakerText.volume = parseInt(this.text)
-                            speakerText.text = speakerText.icon + "  " + this.text.trim().toString().padStart(3, "0")                        }
+                            speakerText.text = speakerText.icon + "  " + this.text.trim().toString().padStart(4, "0")                        }
                     }
                 }
                 Process {
