@@ -64,8 +64,22 @@ PanelWindow {
                 color: "#696580"
                 property list<string> icons: ["", "", "", "", "", "", "", "", ""]
                 property string icon: " "
-                property int brightnessLevel: 50
+                property int brightnessLevel: Math.floor(getCurrentBrightness.brightness * 100 / getMaxBrightness.brightness)
                 property int stepCount: 1
+
+                FileView {
+                    id: getCurrentBrightness
+                    path: "/sys/class/backlight/intel_backlight/actual_brightness"
+                    property int brightness: data();
+
+                    watchChanges: true
+                    onFileChanged: brightness = data();
+                }
+                FileView {
+                    id: getMaxBrightness
+                    path: "/sys/class/backlight/intel_backlight/max_brightness"
+                    property int brightness: data();
+                }
 
                 MouseArea {
                     id: brightnessArea
@@ -85,21 +99,19 @@ PanelWindow {
 
                 Process {
                     id: getBacklightProc
-                    command: ["sh", "-c", "brightnessctl | grep '%' | awk '{print $4}'"]
+                    command: ["sh", "-c", "brightnessctl g | grep '%' | awk '{ print $4 }'"]
                     running: true
                     stdout: StdioCollector {
                         onStreamFinished: {
-                            var percent = parseInt(backlightText.brightnessLevel)
-                            if (percent < 10) backlightText.icon = backlightText.icons[0]
-                            else if (percent < 20) backlightText.icon = backlightText.icons[1]
-                            else if (percent < 30) backlightText.icon = backlightText.icons[2]
-                            else if (percent < 40) backlightText.icon = backlightText.icons[3]
-                            else if (percent < 50) backlightText.icon = backlightText.icons[4]
-                            else if (percent < 60) backlightText.icon = backlightText.icons[5]
-                            else if (percent < 70) backlightText.icon = backlightText.icons[6]
-                            else if (percent < 80) backlightText.icon = backlightText.icons[7]
+                            if (backlightText.brightnessLevel < 10) backlightText.icon = backlightText.icons[0]
+                            else if (backlightText.brightnessLevel < 20) backlightText.icon = backlightText.icons[1]
+                            else if (backlightText.brightnessLevel < 30) backlightText.icon = backlightText.icons[2]
+                            else if (backlightText.brightnessLevel < 40) backlightText.icon = backlightText.icons[3]
+                            else if (backlightText.brightnessLevel < 50) backlightText.icon = backlightText.icons[4]
+                            else if (backlightText.brightnessLevel < 60) backlightText.icon = backlightText.icons[5]
+                            else if (backlightText.brightnessLevel < 70) backlightText.icon = backlightText.icons[6]
+                            else if (backlightText.brightnessLevel < 80) backlightText.icon = backlightText.icons[7]
                             else backlightText.icon = backlightText.icons[8]
-                            // backlightText.text = backlightText.icon + "  " + this.text.trim().toString().padStart(3, "0")
                             backlightText.text = backlightText.icon + "  " + backlightText.brightnessLevel.toString().padStart(3, "0") + "%"
                         }
                     }
@@ -107,7 +119,7 @@ PanelWindow {
                 Process {
                     id: setBacklightProc
                     command: ["sh", "-c", "brightnessctl s " + backlightText.brightnessLevel + "%"]
-                    running: true
+                    running: false
                 }
 
                 FileView {
@@ -237,18 +249,18 @@ PanelWindow {
                     running: true
                     stdout: StdioCollector {
                         onStreamFinished: {
-                            var percent = parseInt(speakerText.volume)
+                            var percent = parseInt(this.text)
                             if (percent < 33) speakerText.icon = speakerText.icons[0]
                             else if (percent < 66) speakerText.icon = speakerText.icons[1]
                             else speakerText.icon = speakerText.icons[2]
-                            speakerText.text = speakerText.icon + "  " + speakerText.volume.toString().padStart(3, "0") + "%"
-                        }
+                            speakerText.volume = parseInt(this.text)
+                            speakerText.text = speakerText.icon + "  " + this.text.trim().toString().padStart(3, "0")                        }
                     }
                 }
                 Process {
                     id: setVolumeProc
                     command: ["sh", "-c", "pactl set-sink-volume @DEFAULT_SINK@ " + speakerText.volume + "%"]
-                    running: true
+                    running: false
                 }
 
                 FileView {
