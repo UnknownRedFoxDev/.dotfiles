@@ -35,8 +35,8 @@ import "."
 // Backlight:
 //     icons: ["", "", "", "", "", "", "", "", ""]
 // Temperature:
+//     icon: ["", ""]
 //     icon: 
-//     icon: 
 // Audio:
 //     icons: [" ", "", " ", " "]
 
@@ -50,6 +50,129 @@ PanelWindow {
         anchors.right: parent.right
         anchors.verticalCenter: parent.verticalCenter
         spacing: -1
+
+        Rectangle {
+            implicitWidth: cpuText.implicitWidth
+            implicitHeight: 25
+            color: "#191726"
+            Text {
+                id: cpuText
+                topPadding: 2
+                font.family: "FiraCode Nerd Font"
+                font.pixelSize: 18
+                font.weight: 500
+                color: "#696580"
+                property string icon: ""
+
+                Process {
+                    id: cpuProc
+                    command: ["sh", "-c", ""]
+                    running: true
+                    stdout: StdioCollector {
+                        onStreamFinished: {
+                            var percent = parseInt(this.text.trim())
+                            cpuText.text = cpuText.icon + this.text
+                        }
+                    }
+                }
+                Timer {
+                    interval: 10000
+                    running: true
+                    repeat: true
+                    onTriggered: cpuProc.running = true
+                }
+            }
+        }
+
+        Separator {
+            sepText: "  "
+            fgColor: "#696580"
+            bgColor: "#191726"
+            fontSize: 21
+        }
+
+        Rectangle {
+            implicitWidth: memoryText.implicitWidth
+            implicitHeight: 25
+            color: "#191726"
+            Text {
+                id: memoryText
+                topPadding: 2
+                font.family: "FiraCode Nerd Font"
+                font.pixelSize: 18
+                font.weight: 500
+                color: "#696580"
+                property string icon: " "
+
+                Process {
+                    id: memoryProc
+                    command: ["sh", "-c", "awk '/^MemTotal/ { total=$2 } /^MemAvailable/ { avail=$2 } END { printf \"%.d%%\", 100 * (total - avail) / total }' /proc/meminfo"]
+                    running: true
+                    stdout: StdioCollector {
+                        onStreamFinished: {
+                            var percent = parseInt(this.text.trim())
+                            memoryText.text = memoryText.icon + this.text
+                        }
+                    }
+                }
+                Timer {
+                    interval: 30000
+                    running: true
+                    repeat: true
+                    onTriggered: memoryProc.running = true
+                }
+            }
+        }
+
+        Separator {
+            sepText: "  "
+            fgColor: "#696580"
+            bgColor: "#191726"
+            fontSize: 21
+        }
+
+        Rectangle {
+            implicitWidth: temperatureText.implicitWidth
+            implicitHeight: 25
+            color: "#191726"
+            Text {
+                id: temperatureText
+                topPadding: 2
+                font.family: "FiraCode Nerd Font"
+                font.pixelSize: 18
+                font.weight: 500
+                color: "#696580"
+                property list<string> icons: [" ", " "]
+                property string icon: " "
+
+                Process {
+                    id: temperatureProc
+                    command: ["cat", "/sys/devices/platform/thinkpad_hwmon/hwmon/hwmon4/temp1_input"]
+                    running: true
+                    stdout: StdioCollector {
+                        onStreamFinished: {
+                            var percent = parseInt(this.text.trim())
+                            if (percent < 40) temperatureText.icon = icons[0]
+                            else if (percent < 70) temperatureText.icon = temperatureText.icons[1]
+                            temperatureText.text = temperatureText.icon + this.text.trim() / 1000 + "°C"
+                        }
+                    }
+                }
+                Timer {
+                    interval: 15000
+                    running: true
+                    repeat: true
+                    onTriggered: temperatureProc.running = true
+                }
+            }
+        }
+
+        Separator {
+            sepText: "  "
+            fgColor: "#696580"
+            bgColor: "#191726"
+            fontSize: 21
+        }
 
         Rectangle {
             implicitWidth: bat1Text.implicitWidth
@@ -211,7 +334,7 @@ PanelWindow {
                             else if (percent < 66) speakerText.icon = speakerText.icons[1]
                             else speakerText.icon = speakerText.icons[2]
                             speakerText.volume = parseInt(this.text)
-                            speakerText.text = speakerText.icon + "  " + this.text.trim().toString().padStart(4, "0")                        }
+                            speakerText.text = speakerText.icon + "  " + this.text.trim().toString().padStart(3, "0")                        }
                     }
                 }
                 Process {
