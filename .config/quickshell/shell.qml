@@ -52,83 +52,40 @@ PanelWindow {
         spacing: -1
 
         Rectangle {
-            implicitWidth: backlightText.implicitWidth
+            implicitWidth: bat1Text.implicitWidth
             implicitHeight: 25
             color: "#191726"
             Text {
-                id: backlightText
+                id: bat1Text
                 topPadding: 2
                 font.family: "FiraCode Nerd Font"
                 font.pixelSize: 18
                 font.weight: 500
                 color: "#696580"
-                property list<string> icons: ["", "", "", "", "", "", "", "", ""]
-                property string icon: " "
-                property int brightnessLevel: Math.floor(getCurrentBrightness.brightness * 100 / getMaxBrightness.brightness)
-                property int stepCount: 1
-
-                FileView {
-                    id: getCurrentBrightness
-                    path: "/sys/class/backlight/intel_backlight/actual_brightness"
-                    property int brightness: data();
-
-                    watchChanges: true
-                    onFileChanged: brightness = data();
-                }
-                FileView {
-                    id: getMaxBrightness
-                    path: "/sys/class/backlight/intel_backlight/max_brightness"
-                    property int brightness: data();
-                }
-
-                MouseArea {
-                    id: brightnessArea
-                    anchors.fill: parent
-                    onWheel: (wheel) => {
-                        let step = backlightText.stepCount;
-                        if (wheel.angleDelta.y > 0) {
-                            backlightText.brightnessLevel = Math.min(backlightText.brightnessLevel + step, 100);
-                            setBacklightProc.running = true
-                        } else {
-                            backlightText.brightnessLevel = Math.max(backlightText.brightnessLevel - step, 1);
-                            setBacklightProc.running = true
-                        }
-                    }
-
-                }
+                property list<string> icons: [" ", " ", " ", " ", " "]
+                property string icon: " "
 
                 Process {
-                    id: getBacklightProc
-                    command: ["sh", "-c", "brightnessctl g | grep '%' | awk '{ print $4 }'"]
+                    id: batteryProc
+                    command: ["cat", "/sys/class/power_supply/BAT1/capacity",]
                     running: true
                     stdout: StdioCollector {
                         onStreamFinished: {
-                            if (backlightText.brightnessLevel < 10) backlightText.icon = backlightText.icons[0]
-                            else if (backlightText.brightnessLevel < 20) backlightText.icon = backlightText.icons[1]
-                            else if (backlightText.brightnessLevel < 30) backlightText.icon = backlightText.icons[2]
-                            else if (backlightText.brightnessLevel < 40) backlightText.icon = backlightText.icons[3]
-                            else if (backlightText.brightnessLevel < 50) backlightText.icon = backlightText.icons[4]
-                            else if (backlightText.brightnessLevel < 60) backlightText.icon = backlightText.icons[5]
-                            else if (backlightText.brightnessLevel < 70) backlightText.icon = backlightText.icons[6]
-                            else if (backlightText.brightnessLevel < 80) backlightText.icon = backlightText.icons[7]
-                            else backlightText.icon = backlightText.icons[8]
-                            backlightText.text = backlightText.icon + "  " + backlightText.brightnessLevel.toString().padStart(3, "0") + "%"
+                            var percent = parseInt(this.text.trim())
+                            if (percent < 20) bat1Text.icon = icons[0]
+                            else if (percent < 40) bat1Text.icon = bat1Text.icons[1]
+                            else if (percent < 60) bat1Text.icon = bat1Text.icons[2]
+                            else if (percent < 80) bat1Text.icon = bat1Text.icons[3]
+                            else bat1Text.icon = bat1Text.icons[4]
+                            bat1Text.text = bat1Text.icon + this.text.trim() + "%"
                         }
                     }
                 }
-                Process {
-                    id: setBacklightProc
-                    command: ["sh", "-c", "brightnessctl s " + backlightText.brightnessLevel + "%"]
-                    running: false
-                }
-
-                FileView {
-                    id: backLightWatcher
-                    path: "/sys/class/backlight/intel_backlight/actual_brightness"
-                    watchChanges: true
-                    onFileChanged: {
-                        getBacklightProc.running = true
-                    }
+                Timer {
+                    interval: 30000
+                    running: true
+                    repeat: true
+                    onTriggered: batteryProc.running = true
                 }
             }
         }
@@ -254,7 +211,7 @@ PanelWindow {
                             else if (percent < 66) speakerText.icon = speakerText.icons[1]
                             else speakerText.icon = speakerText.icons[2]
                             speakerText.volume = parseInt(this.text)
-                            speakerText.text = speakerText.icon + "  " + this.text.trim().toString().padStart(3, "0")                        }
+                            speakerText.text = speakerText.icon + "  " + this.text.trim().toString().padStart(4, "0")                        }
                     }
                 }
                 Process {
@@ -281,40 +238,83 @@ PanelWindow {
         }
 
         Rectangle {
-            implicitWidth: bat1Text.implicitWidth
+            implicitWidth: backlightText.implicitWidth
             implicitHeight: 25
             color: "#2B4052"
             Text {
-                id: bat1Text
+                id: backlightText
                 topPadding: 2
                 font.family: "FiraCode Nerd Font"
                 font.pixelSize: 18
                 font.weight: 500
                 color: "#CDCBE0"
-                property list<string> icons: [" ", " ", " ", " ", " "]
-                property string icon: " "
+                property list<string> icons: ["", "", "", "", "", "", "", "", ""]
+                property string icon: " "
+                property int brightnessLevel: Math.floor(getCurrentBrightness.brightness * 100 / getMaxBrightness.brightness)
+                property int stepCount: 1
+
+                FileView {
+                    id: getCurrentBrightness
+                    path: "/sys/class/backlight/intel_backlight/actual_brightness"
+                    property int brightness: data();
+
+                    watchChanges: true
+                    onFileChanged: brightness = data();
+                }
+                FileView {
+                    id: getMaxBrightness
+                    path: "/sys/class/backlight/intel_backlight/max_brightness"
+                    property int brightness: data();
+                }
+
+                MouseArea {
+                    id: brightnessArea
+                    anchors.fill: parent
+                    onWheel: (wheel) => {
+                        let step = backlightText.stepCount;
+                        if (wheel.angleDelta.y > 0) {
+                            backlightText.brightnessLevel = Math.min(backlightText.brightnessLevel + step, 100);
+                            setBacklightProc.running = true
+                        } else {
+                            backlightText.brightnessLevel = Math.max(backlightText.brightnessLevel - step, 1);
+                            setBacklightProc.running = true
+                        }
+                    }
+
+                }
 
                 Process {
-                    id: batteryProc
-                    command: ["cat", "/sys/class/power_supply/BAT1/capacity",]
+                    id: getBacklightProc
+                    command: ["sh", "-c", "brightnessctl g | grep '%' | awk '{ print $4 }'"]
                     running: true
                     stdout: StdioCollector {
                         onStreamFinished: {
-                            var percent = parseInt(this.text.trim())
-                            if (percent < 20) bat1Text.icon = icons[0]
-                            else if (percent < 40) bat1Text.icon = bat1Text.icons[1]
-                            else if (percent < 60) bat1Text.icon = bat1Text.icons[2]
-                            else if (percent < 80) bat1Text.icon = bat1Text.icons[3]
-                            else bat1Text.icon = bat1Text.icons[4]
-                            bat1Text.text = bat1Text.icon + this.text.trim() + "%"
+                            if (backlightText.brightnessLevel < 10) backlightText.icon = backlightText.icons[0]
+                            else if (backlightText.brightnessLevel < 20) backlightText.icon = backlightText.icons[1]
+                            else if (backlightText.brightnessLevel < 30) backlightText.icon = backlightText.icons[2]
+                            else if (backlightText.brightnessLevel < 40) backlightText.icon = backlightText.icons[3]
+                            else if (backlightText.brightnessLevel < 50) backlightText.icon = backlightText.icons[4]
+                            else if (backlightText.brightnessLevel < 60) backlightText.icon = backlightText.icons[5]
+                            else if (backlightText.brightnessLevel < 70) backlightText.icon = backlightText.icons[6]
+                            else if (backlightText.brightnessLevel < 80) backlightText.icon = backlightText.icons[7]
+                            else backlightText.icon = backlightText.icons[8]
+                            backlightText.text = backlightText.icon + " " + backlightText.brightnessLevel.toString().padStart(3, "0") + "%"
                         }
                     }
                 }
-                Timer {
-                    interval: 30000
-                    running: true
-                    repeat: true
-                    onTriggered: batteryProc.running = true
+                Process {
+                    id: setBacklightProc
+                    command: ["sh", "-c", "brightnessctl s " + backlightText.brightnessLevel + "%"]
+                    running: false
+                }
+
+                FileView {
+                    id: backLightWatcher
+                    path: "/sys/class/backlight/intel_backlight/actual_brightness"
+                    watchChanges: true
+                    onFileChanged: {
+                        getBacklightProc.running = true
+                    }
                 }
             }
         }
