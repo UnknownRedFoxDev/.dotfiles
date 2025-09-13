@@ -509,7 +509,7 @@ require("lazy").setup({
 					"--header-insertion=iwyu",
 					"--completion-style=detailed",
 				},
-				root_dir = require("lspconfig.util").root_pattern("Makefile", "compile_commands.json", ".git"),
+				-- root_dir = require("lspconfig.util").root_pattern("Makefile", "compile_commands.json", ".git"),
 			}
 		end,
 	},

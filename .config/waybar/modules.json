@@ -73,7 +73,7 @@
         "format-alt": "{:%Y-%m-%d | :%H:%M:%S}"
     },
     "custom/shutdown": {
-        "format":"click me",
-        "on-click": "wlogout"
+        "on-click": "wlogout",
+        "format": ""
     }
 }

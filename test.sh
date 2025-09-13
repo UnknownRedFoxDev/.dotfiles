@@ -69,12 +69,12 @@ find $DEV_ENV -mindepth 2 -type d | while read -r folder; do
 
     # aka: /home/$USER/.config
     homeRootPath="$destFolder/$rootFolder"
-    echo -e "${RED}Removing: rm -rf $destFolder/$relative_path${WHITE}"
+    # echo -e "${RED}Removing: rm -rf $destFolder/$relative_path${WHITE}"
     if [[ -d $homePath ]]; then
         rm -rf $homePath
     fi
 
-    echo -e "${GREEN}Copying env: $folder_name ---> $homeRootPath${WHITE}"
+    # echo -e "${GREEN}Copying env: $folder_name ---> $homeRootPath${WHITE}"
     mkdir -p "$homeRootPath" >/dev/null 2>/dev/null
     cp -rf "$folder" "$homeRootPath"
 done
@@ -85,11 +85,11 @@ find $DEV_ENV -maxdepth 1 -type f | while read -r file; do
     filename=$(basename $file)
     destPath="$destFolder/$filename"
     if [[ -f $destPath ]]; then
-        echo -e "${RED}Removing: $destPath${WHITE}"
+        # echo -e "${RED}Removing: $destPath${WHITE}"
         rm $destPath
     fi
 
-    echo -e "${GREEN}Copying: $file ---> $destPath${WHITE}"
+    # echo -e "${GREEN}Copying: $file ---> $destPath${WHITE}"
     cp -f "$file" "$destFolder"
 done
 

@@ -2,6 +2,7 @@ import Quickshell
 import Quickshell.Io
 import QtQuick
 import QtQuick.Controls
+import Quickshell.Hyprland
 import "."
 
 // color lightBlue   : #569FBA
@@ -15,8 +16,8 @@ import "."
 // color lightGray   : #CDCBE0
 // color darkGray    : #696580
 // color background  : #191726
-// powerline no.1 : 
-// powerline no.2 : 
+// powerline no.1 : , 
+// powerline no.2 : , 
 // Workspaces:
 //     "urgent": " ",
 //     "active": " ",
@@ -58,7 +59,7 @@ PanelWindow {
             Text {
                 id: cpuText
                 topPadding: 2
-                font.family: "FiraCode Nerd Font"
+                font.family: "CaskaydiaCove Nerd Font Mono"
                 font.pixelSize: 18
                 font.weight: 500
                 color: "#696580"
@@ -298,13 +299,12 @@ PanelWindow {
             color: "#2B4052"
             Text {
                 id: speakerText
-                topPadding: 2
-                font.family: "FiraCode Nerd Font"
+                font.family: "CaskaydiaCove Nerd Font"
                 font.pixelSize: 18
                 font.weight: 500
                 color: "#CDCBE0"
-                property list<string> icons: [" ", " ", " "]
-                property string icon: " "
+                property list<string> icons: [" 🔇︎", " 🕨", " 🕩", " 🕪"]
+                property string icon: " 🔇︎"
                 property int volume: 0
                 property int stepCount: 1
 
@@ -313,14 +313,22 @@ PanelWindow {
                     anchors.fill: parent
                     onWheel: (wheel) => {
                         let step = speakerText.stepCount;
+                        setVolumeProc.running = true
                         if (wheel.angleDelta.y > 0) {
                             speakerText.volume = Math.min(speakerText.volume + step, 100);
-                            setVolumeProc.running = true
                         } else {
                             speakerText.volume = Math.max(speakerText.volume - step, 0);
-                            setVolumeProc.running = true
                         }
                     }
+                    onClicked: {
+                        openParuControl.running = true
+                    }
+                }
+
+                Process {
+                    id: openParuControl
+                    command: ["pavucontrol"]
+                    running: false
                 }
 
                 Process {
@@ -330,11 +338,12 @@ PanelWindow {
                     stdout: StdioCollector {
                         onStreamFinished: {
                             var percent = parseInt(this.text)
-                            if (percent < 33) speakerText.icon = speakerText.icons[0]
-                            else if (percent < 66) speakerText.icon = speakerText.icons[1]
-                            else speakerText.icon = speakerText.icons[2]
+                            if (percent == 0) speakerText.icon = speakerText.icons[0]
+                            else if (percent < 25) speakerText.icon = speakerText.icons[1]
+                            else if (percent < 50) speakerText.icon = speakerText.icons[2]
+                            else speakerText.icon = speakerText.icons[3]
                             speakerText.volume = parseInt(this.text)
-                            speakerText.text = speakerText.icon + "  " + this.text.trim().toString().padStart(4, "0")                        }
+                            speakerText.text = speakerText.icon + " " + this.text.trim().toString().padStart(4, "0")                        }
                     }
                 }
                 Process {
@@ -353,6 +362,7 @@ PanelWindow {
                 }
             }
         }
+
         Separator {
             sepText: "  "
             fgColor: "#CDCBE0"
@@ -470,6 +480,36 @@ PanelWindow {
                 running: false
             }
             onClicked: buttonEvent.running = true;
+        }
+    }
+
+// ------------------------- LEFT COLUMN -------------------------
+// , 
+
+    Row {
+        anchors.left: parent.left
+        anchors.verticalCenter: parent.verticalCenter
+        spacing: -1
+
+        Loader {
+            sourceComponent: Workspaces {
+                bar: root
+                wsBaseIndex: 1
+            }
+        }
+
+        Workspaces {
+            bar: root
+            Layout.fillWidth: true
+            wsBaseIndex: root.screen.name == "eDP-1" ? 11 : 1;
+            hideWhenEmpty: root.isSoleBar
+        }
+
+        Separator {
+            sepText: " "
+            fgColor: "#569FBA"
+            bgColor: "#191726"
+            fontSize: 21
         }
     }
 }

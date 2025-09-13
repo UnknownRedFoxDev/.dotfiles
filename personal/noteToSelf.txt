@@ -1,0 +1,23 @@
+# 1st step: install library
+yay -S python-validity
+
+# 2nd step: install firmware
+sudo validity-sensors-firmware
+
+# 3rd step: enable service/daemon
+sudo systemctl enable python3-validity
+
+# 4th step: start service/daemon
+sudo systemctl start python3-validity
+
+# 5th step: enroll fingerprint
+fprintd-enroll
+
+# 6th step: add pam.d to config files
+
+- add: auth sufficient pam_fprintd.so
+    to: /etc/pam.d/system-login
+        /etc/pam.d/login
+        /etc/pam.d/sddm
+        /etc/pam.d/swaylock
+        /etc/pam.d/hyprlock

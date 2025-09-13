@@ -1,96 +1,81 @@
-* {
-    /* `otf-font-awesome` and SpaceMono Nerd Font are required to be installed for icons */
-    font-family: "Fira Sans Semibold", FontAwesome, Roboto, Helvetica, Arial, sans-serif;
-    font-size: 16px;
-    transition: background-color .3s ease-out;
-}
-
 window#waybar {
-    background: #191726;
-    color: #c0caf5;
-    font-family:
-    FiraCode Nerd Font,
-    feather;
+    background-color: #191726;
 }
 
-.modules-left,
-.modules-center,
-.modules-right
-{
-    background: #191726;
-    margin: 4.5px 0;
-    padding: 0 5px;
-}
-.modules-left {
-    margin-left: 10px;
+* {
+    padding: 0;
+    margin: 0;
+    font-family: "FiraCode Nerd Font";
+    font-size: 14px;
 }
 
-#clock,
-#battery,
+#window {
+    color: #191726;
+    background-color: #CDCBE0;
+    padding: 0;
+    margin-left: 7px;
+}
+
+#workspaces,
 #cpu,
 #memory,
-#disk,
-#temperature,
-#backlight,
+#battery {
+    color: #6e6a86;
+    background-color: #191726;
+    padding: 0;
+    margin: 0;
+}
+
 #network,
 #pulseaudio,
-#wireplumber,
-#custom-media,
-#tray,
-#mode,
-#idle_inhibitor,
-#scratchpad,
-#power-profiles-daemon,
-#language,
-#power,
-#custom-shutdown,
-#mpd {
-    padding: 0 5px;
-    border-radius: 10px;
-}
-
-#clock:hover,
-#battery:hover,
-#cpu:hover,
-#memory:hover,
-#disk:hover,
-#temperature:hover,
-#backlight:hover,
-#network:hover,
-#pulseaudio:hover,
-#wireplumber:hover,
-#custom-media:hover,
-#tray:hover,
-#mode:hover,
-#idle_inhibitor:hover,
-#scratchpad:hover,
-#power-profiles-daemon:hover,
-#power,
-#language:hover,
-#custom-shutdown,
-#mpd:hover {
-    background: #191726;
-}
-
-
-#workspaces button {
-    background: #191726;
-    font-family: FiraCode Nerd Font;
-    font-weight: 900;
-    font-size: 16pt;
-    color: #c0caf5;
-    border:none;
-    border-radius: 10px;
-}
-
-#workspaces button.active {
-    background: #CDCBE0;
+#clock.time,
+#clock.date {
     color: #191726;
+    background-color: #CDCBE0;
+    padding: 0;
+    margin: 0;
 }
 
-#workspaces button:hover {
-    background: #CDCBE0;
+#custom-shutdown {
     color: #191726;
-    box-shadow: none;
+    background-color: #569FBA;
+    padding: 0;
+    margin: 0;
 }
 
+#custom-separator1\.blue {
+    color: #569FBA!important;
+    background-color: #191726!important;
+    padding: 0;
+    margin-right: 7px;
+}
+
+/* #custom#separatorwhite { */
+/*     color: #CDCBE0; */
+/*     background-color: #191726; */
+/* } */
+/**/
+/* #custom#separatorblue { */
+/*     color: #569FBA; */
+/*     background-color: #CDCBE0; */
+/* } */
+/**/
+/* #custom#inbetweenwhite { */
+/*     color: #191726; */
+/*     background-color: #CDCBE0; */
+/* } */
+/**/
+/* #custom#inbetweengray { */
+/*     color: #6e6a86; */
+/*     background-color: #191726; */
+/* } */
+
+#battery.critical,
+#memory.critical,
+#cpu.critical {
+    color: #d80000;
+}
+
+#battery.warning {
+    color: orange;
+}

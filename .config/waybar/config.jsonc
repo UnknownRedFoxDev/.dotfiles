@@ -1,31 +1,141 @@
-// -*- mode: jsonc -*-
 {
-    "layer": "bottom", // Waybar at top layer
-    "position": "top", // Waybar position (top|bottom|left|right)
-    "height": 30, // Waybar height (to be removed for auto height)
-    // "width": 1280, // Waybar width
-    "spacing": 5, // Gaps between modules (4px)
-    // Choose the order of the modules
+    "layer": "top",
+    "spacing": 3,
+    "height": 30,
+
+    "margin-top": 0,
+    "margin-right": 0,
+    "margin-bottom": 1,
+    "margin-left": 0,
+
     "modules-left": [
         "hyprland/window"
     ],
+
     "modules-center": [
         "hyprland/workspaces"
     ],
+
     "modules-right": [
-        "pulseaudio",
-        "network",
-        "backlight",
         "cpu",
         "memory",
-        "temperature",
         "battery",
-        "clock",
+        "custom/separtor1#blue",
+        "network",
+        "pulseaudio",
+        "clock#date",
+        "clock#time",
         "custom/shutdown"
     ],
 
-    //Modules configuration
-    "include": [
-		"~/.config/waybar/modules.json"
-	]
+    "hyprland/workspaces": {
+        "format": "{icon}",
+        "on-click": "activate",
+        "format-icons": {
+            "1": " ",
+            "urgent": " ",
+            "active": " ",
+            "default": " "
+            },
+        "sort-by-number": true
+    },
+
+    "tray": {
+        "spacing": 10,
+        "tooltip": false
+    },
+    "custom/separtor1#blue": {
+        "format": "",
+        "tooltip": false
+    },
+
+    // "custom#inbetweenwhite": {
+    //     "format": "",
+    // },
+    //
+    // "custom#inbetweengray": {
+    //     "format": "",
+    // },
+    //
+    // "custom#separatorwhite": {
+    //     "format": "",
+    // },
+    //
+    // "custom#separatorgray": {
+    //     "format": "",
+    // },
+
+    "clock#date": {
+        "format": " {:%a %d %b} ",
+        "tooltip": false
+    },
+    "clock#time": {
+        "format": " {:%H:%M} ",
+        "tooltip": false
+    },
+
+    "cpu": {
+        "format": "  {usage}%",
+        "interval": 2,
+
+        "states": {
+            "critical": 70
+        }
+    },
+
+    "memory": {
+        "format": "  {percentage}%",
+        "interval": 2,
+
+        "states": {
+            "critical": 80
+        }
+    },
+
+    "battery": {
+        "format": "  {capacity}%",
+        "interval": 5,
+        "states": {
+            "warning": 20,
+            "critical": 10
+        },
+        "tooltip": false,
+        "on-double-click": "pkill waybar && waybar",
+    },
+
+    "network": {
+        "format-wifi" : "  up",
+        "format-ethernet": "󰈀  up",
+        "format-disconnected" : "󰤯  dead",
+        "tooltip": false
+    },
+
+    "pulseaudio": {
+        "scroll-step": 5,
+        "max-volume": 150,
+        "format": "󰕾 {volume}%",
+        "format-bluetooth": "󰕾  {volume}%",
+        "nospacing": 1,
+        "on-click": "pavucontrol",
+        "tooltip": true
+    },
+
+    "custom/shutdown": {
+        "on-click": "wlogout",
+        "format": "",
+    },
+
+    "mpris": {
+        "format": "{player_icon}  {dynamic}",
+        "format-paused": "{status_icon} <i>{dynamic}</i>",
+        "player-icons": {
+            "default": "",
+            "mpv": ""
+        },
+        "status-icons": {
+            "paused": "⏸"
+        },
+        "dynamic-order": ["title", "artist"],
+        "dynamic-len": 30,
+    }
 }
