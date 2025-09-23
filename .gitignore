@@ -48,8 +48,7 @@ music
 .config/dconf
 .config/dconf
 .config/libreoffice/4
-personal/sideStuff/houseItems
-personal/houseItems
+personal/
 personal/houseItems
 video_temp
 personal/programming/ImGui
@@ -68,15 +67,13 @@ personal/programming/ImGui
 .config/Electron/Crashpad
 .config/user-dirs.dirs
 .config/user-dirs.locale
-personal/programming/python-uv-example/__pycache__
-personal/programming/python-uv-example/scripts/__pycache__
 .config/gtk-3.0
 .config/kritadisplayrc
 .config/kritarc
 .config/kritashortcutsrc
 opt/qdirstat
 personal/ProfessionalNotes
-personal/programming/sprite_cutter/scripts/__pycache__
+personal/programming/sprite_cutter
 personal/programming/python-uv-example
 personal/programming/python-uv-example
 personal/programming/sprite_cutter
@@ -89,3 +86,6 @@ opt
 .nimble
 go/pkg/mod
 .config/cppman
+personal/games/
+package-lock.json
+personal/schoolWork/

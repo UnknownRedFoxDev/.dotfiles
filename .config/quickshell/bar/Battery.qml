@@ -26,12 +26,10 @@ Singleton {
             }
         }
     }
-    FileView {
-        id: batteryWatcher
-        path: "/sys/class/power_supply/BAT1/capacity"
-        watchChanges: true
-        onFileChanged: {
-            batteryProc.running = true
-        }
+    Timer {
+        interval: 10000
+        running: true
+        repeat: true
+        onTriggered: batteryProc.running = true
     }
 }
