@@ -1,4 +1,0 @@
-[INFO] arr size: 3
-[INFO] arr capacity: 256
-[INFO] array items:
-3 2 8 
